@@ -1,13 +1,18 @@
 from flask import Flask, jsonify
 from dotenv import load_dotenv
-from google import genai
+from langchain_google_genai import ChatGoogleGenerativeAI
 import os
 
 app = Flask(__name__)
 
 load_dotenv()
+
 api_key = os.getenv("GOOGLE_API_KEY")
-client = genai.Client(api_key=api_key)
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-3.1-flash-lite",
+    google_api_key = api_key
+)
 
 
 @app.route("/")
@@ -18,13 +23,12 @@ def home():
 
 @app.route('/ask')
 def ask():
-    response = client.models.generate_content(
-        model="gemini-3.5-flash",
-        contents="Explain Artificial Intelligence in one sentence"
+    response = llm.invoke(
+        "Explain Artificial Intelligence in one sentence."
     )
 
     return jsonify({
-        "response" : response.text
+        "response" : response.content
     })
 
 if __name__ == "__main__" :
