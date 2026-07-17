@@ -1,7 +1,13 @@
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 from flask import Flask, jsonify
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 import os
+from prompts.support_prompt import support_prompt
 
 app = Flask(__name__)
 
@@ -23,9 +29,13 @@ def home():
 
 @app.route('/ask')
 def ask():
-    response = llm.invoke(
-        "Explain Artificial Intelligence in one sentence."
+    prompt =support_prompt.invoke(
+        {
+            "question" : "Explain Artificial Intelligence in one sentence."
+        }
     )
+
+    response = llm.invoke(prompt)
 
     return jsonify({
         "response" : response.content
