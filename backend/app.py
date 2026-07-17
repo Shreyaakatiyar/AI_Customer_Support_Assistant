@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 import os
@@ -27,11 +27,20 @@ def home():
         "message" : "AI Customer Support Backend is running"
     })
 
-@app.route('/ask')
-def ask():
-    prompt =support_prompt.invoke(
+@app.route("/chat", methods=["POST"])
+def chat():
+    data = request.get_json()
+    
+    question = data.get("question")
+
+    if not question :
+        return jsonify({
+            "error" : "Question is required"
+        }), 400
+    
+    prompt = support_prompt.invoke(
         {
-            "question" : "Explain Artificial Intelligence in one sentence."
+            "question" : question
         }
     )
 
