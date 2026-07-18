@@ -24,9 +24,7 @@ def chat():
 
     response = generate_response(question)
 
-    return jsonify({
-        "response" : response
-    })
+    return jsonify(response.model_dump())
 
 if __name__ == "__main__" :
     app.run(debug=True)

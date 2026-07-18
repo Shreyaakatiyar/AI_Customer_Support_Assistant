@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 from prompts.support_prompt import support_prompt
+from prompts.support_prompt import support_prompt, parser
 
 load_dotenv()
 
@@ -22,4 +23,6 @@ def generate_response(question: str):
 
     response = llm.invoke(prompt)
 
-    return response.content
+    parsed_response = parser.invoke(response)
+
+    return parsed_response

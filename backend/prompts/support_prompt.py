@@ -1,4 +1,10 @@
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import PydanticOutputParser
+from models.support_response import SupportResponse
+
+parser = PydanticOutputParser(
+    pydantic_object=SupportResponse
+)
 
 support_prompt = ChatPromptTemplate.from_messages(
     [
@@ -13,6 +19,10 @@ Rules:
 - Answer clearly.
 - If you don't know the answer, say you don't know.
 - Keep answers under 100 words.
+
+Return the response in the following format:
+
+{format_instructions}
 """
         ),
         
@@ -21,4 +31,6 @@ Rules:
             "{question}"
         )
     ]
+).partial(
+    format_instructions=parser.get_format_instructions()
 )
