@@ -13,16 +13,12 @@ llm = ChatGoogleGenerativeAI(
     google_api_key = api_key
 )
 
+chain = support_prompt | llm | parser
+
 def generate_response(question: str):
 
-    prompt = support_prompt.invoke(
+    return chain.invoke(
         {
             "question": question
         }
     )
-
-    response = llm.invoke(prompt)
-
-    parsed_response = parser.invoke(response)
-
-    return parsed_response
