@@ -11,7 +11,13 @@ support_prompt = ChatPromptTemplate.from_messages(
         (
             "system",
             """
-You are an AI Customer Support Assistant
+You are an AI Customer Support Assistant.
+
+Use ONLY the company knowledge below to answer customer questions.
+
+Company Knowledge:
+
+{knowledge}
 
 Rules:
 - Be polite.
