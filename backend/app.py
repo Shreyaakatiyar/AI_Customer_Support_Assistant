@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from services.ai_service import generate_response
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
