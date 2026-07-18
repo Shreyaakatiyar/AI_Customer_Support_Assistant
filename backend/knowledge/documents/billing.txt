@@ -1,0 +1,11 @@
+Billing
+
+Payments are processed immediately.
+
+Invoices are emailed automatically.
+
+Accepted payment methods:
+Visa
+MasterCard
+UPI
+PayPal
