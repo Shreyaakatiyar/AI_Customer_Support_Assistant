@@ -246,19 +246,6 @@ Frontend Chat Interface
 
 ---
 
-## Future Improvements
-
-- Conversation memory
-- Source document citations
-- Streaming AI responses
-- Multi-user support
-- Authentication
-- Docker deployment
-- Admin dashboard
-- Support for PDF knowledge bases
-
----
-
 ## Author
 
 **Shreyaa Katiyar**
